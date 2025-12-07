@@ -1,5 +1,11 @@
 [
     {
+        "name": "SlowRoads",
+        "file": "/games/slowroads/index.html",
+        "img": "/games/slowroads/thumbnail.png"
+    },
+    
+    {
         "name": "Level Devil",
         "file": "/games/leveldevil/index.html",
         "img": "/games/leveldevil/thumbnail.png"
