@@ -6,7 +6,7 @@
     if (sessionStorage.getItem(sessionKey)) return;
 
     document.addEventListener('DOMContentLoaded', () => {
-        const message = "🔔 This is an important announcement!";
+        const message = "🔔 Please take your time to read this. Recently, realpeanut got blocked. I revived it. Thank me later. I have also kept Polytrack, and all of your data in polytrack will be intact. I am still working on a project to help make it so that tracks can be shared. Anyways, I have also added a game called Slowroads (play it, it is addicting). I have also added another game called level devil. Email me (you know who i am, if you dont you dont deserve to) if you get any bugs. hope yall like ts. any nonfunctional games that you see, email me and i will remove them. Click this announcement to dismiss it. enjoy";
 
         const annBox = document.createElement('div');
         annBox.id = 'announcementBox';
