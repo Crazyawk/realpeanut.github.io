@@ -171,19 +171,7 @@ window.addEventListener("load", () => {
 });
 
 /* -------------------------------
-   5. SERVICE WORKER
---------------------------------- */
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker
-            .register("/service-worker.js")
-            .then(reg => console.log("Service Worker registered:", reg.scope))
-            .catch(err => console.error("Service Worker failed:", err));
-    });
-}
-
-/* -------------------------------
-   6. AUTO SHOW CHOICE IF NONE
+   5. AUTO SHOW CHOICE IF NONE
 --------------------------------- */
 window.addEventListener("load", () => {
     if (!selectedApp) showChoiceBox();
