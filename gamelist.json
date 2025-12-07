@@ -1,5 +1,17 @@
 [
     {
+        "name": "Level Devil",
+        "file": "/games/leveldevil/index.html",
+        "img": "/games/leveldevil/thumbnail.png"
+    },
+    
+    {
+        "name": "Polytrack",
+        "file": "/games/polytrack/index.html",
+        "img": "/games/polytrack/thumbnail.png"
+    },
+    
+    {
         "name": "Slope",
         "file": "/games/slope/index.html",
         "img": "/games/slope/thumbnail.png"

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <canvas id="screen"></canvas>
+    <div id="ui"></div>
+    <div id="transition-layer"></div>
+    <script type="module" src="main.bundle.js" defer></script>
+    <!-- ✅ Inject "Extra tracks" button that matches home screen style -->
+<script>
+(function(){
+  function findMenuButtons() {
+    const ui = document.getElementById("ui");
+    if (!ui) return [];
+    return Array.from(ui.querySelectorAll("button")).filter(b => {
+      const txt = (b.textContent || "").toLowerCase();
+      return /play|start|settings|quit/.test(txt);
+    });
+  }
+
+  function createIcon() {
+    const icon = document.createElement("canvas");
+    icon.width = 24;
+    icon.height = 24;
+    const ctx = icon.getContext("2d");
+    ctx.fillStyle = "black";
+    ctx.beginPath();
+    ctx.arc(12, 12, 12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "white";
+    ctx.fillRect(8, 8, 8, 8);
+    icon.style.marginRight = "8px";
+    icon.style.verticalAlign = "middle";
+    icon.style.width = "1.2em";
+    icon.style.height = "1.2em";
+    return icon;
+  }
+
+  function insertExtraButton() {
+    // Don’t duplicate
+    if (document.getElementById("extraTracksBtn")) return;
+
+    const buttons = findMenuButtons();
+    if (!buttons.length) return;
+    const firstButton = buttons[0];
+
+    // Clone existing button so the same CSS & animations apply
+    const extra = firstButton.cloneNode(true);
+    extra.id = "extraTracksBtn";
+    extra.innerHTML = "";
+    extra.textContent = "";
+    extra.style.pointerEvents = "auto";
+
+    // Add icon + label
+    const icon = createIcon();
+    const label = document.createElement("span");
+    label.textContent = "Extra tracks";
+    label.style.verticalAlign = "middle";
+    extra.appendChild(icon);
+    extra.appendChild(label);
+
+    // Open external site
+    extra.onclick = () => window.open("https://polytrackfun.netlify.app", "_blank");
+
+    // Insert it on the left side (before the first button)
+    firstButton.parentNode.insertBefore(extra, firstButton);
+
+    // Match animation timing by copying inline styles
+    if (firstButton.style.animation) {
+      extra.style.animation = firstButton.style.animation;
+    }
+    if (firstButton.style.transition) {
+      extra.style.transition = firstButton.style.transition;
+    }
+
+    // Trigger animation by forcing reflow
+    extra.style.opacity = "0";
+    void extra.offsetWidth;
+    extra.style.opacity = "1";
+  }
+
+  const observer = new MutationObserver(() => {
+    const buttons = findMenuButtons();
+    const extra = document.getElementById("extraTracksBtn");
+    if (buttons.length && !extra) insertExtraButton();
+    else if (!buttons.length && extra) extra.remove();
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  window.addEventListener("load", () => {
+    setTimeout(insertExtraButton, 1000);
+  });
+})();
+</script>
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        #loading-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+</html>
