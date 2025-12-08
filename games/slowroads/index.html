@@ -32,27 +32,8 @@
         storage-id="slowroads-game-save"
         writable="true"
         storage-archive="slowroads-save.wacz" 
-        behavior="embed">
-    </replay-web-page>
+        behavior="embed"
+        no-auto-focus> </replay-web-page>
 
-    <script>
-        document.addEventListener('keydown', function(e) {
-            const key = e.key.toLowerCase();
-            // Check for N (110), K (107), or M (109)
-            if (key === 'n' || key === 'k' || key === 'm') {
-                // Prevent the event from bubbling down to the embedded game
-                e.stopImmediatePropagation();
-                
-                // Manually re-dispatch the event to the document. This ensures
-                // your sitewide.js listener (which runs later) receives it.
-                // We use document.body focus to ensure the document is active.
-                document.body.focus();
-            }
-        }, { capture: true });
-        
-        // Ensure the main document body has focus immediately after load
-        document.body.focus();
-    </script>
-
-</body>
+    </body>
 </html>
