@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Archived Game Player - slowroads.wacz</title>
     
+    <script src="/sitewide.js" defer></script> 
+    
     <base href="/"> 
     
     <script src="https://cdn.jsdelivr.net/npm/replaywebpage/ui.js"></script>
@@ -12,6 +14,12 @@
         /* Ensures the player fills the browser window */
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
         replay-web-page { width: 100%; height: 100%; display: block; }
+        
+        /* Ensures the PWA blocker overlay is always hidden */
+        #pwaOverlay {
+            display: none !important;
+            visibility: hidden !important;
+        }
     </style>
 </head>
 <body>
@@ -27,7 +35,24 @@
         behavior="embed">
     </replay-web-page>
 
-    <script src="/sitewide.js"></script>
+    <script>
+        document.addEventListener('keydown', function(e) {
+            const key = e.key.toLowerCase();
+            // Check for N (110), K (107), or M (109)
+            if (key === 'n' || key === 'k' || key === 'm') {
+                // Prevent the event from bubbling down to the embedded game
+                e.stopImmediatePropagation();
+                
+                // Manually re-dispatch the event to the document. This ensures
+                // your sitewide.js listener (which runs later) receives it.
+                // We use document.body focus to ensure the document is active.
+                document.body.focus();
+            }
+        }, { capture: true });
+        
+        // Ensure the main document body has focus immediately after load
+        document.body.focus();
+    </script>
 
 </body>
 </html>
