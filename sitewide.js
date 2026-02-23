@@ -6,7 +6,7 @@
     if (sessionStorage.getItem(sessionKey)) return;
 
     document.addEventListener('DOMContentLoaded', () => {
-        const message = "michaels gay";
+        const message = "click this to make it go away";
 
         const annBox = document.createElement('div');
         annBox.id = 'announcementBox';
